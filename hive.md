@@ -14,3 +14,9 @@ ROW FORMAT DELIMITED
   lines terminated by '\n'
 location 's3://bucket-name/[directory]/[directory]/';
 ```
+
+Also make sure you run the following HIVE command to add metadata about the partitions to the Hive catalogs.
+
+```
+msck repair table <table-name>
+```
