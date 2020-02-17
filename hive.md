@@ -1,5 +1,8 @@
-```
-create external table name-database (
+Example of how to create an external table in Hive for this sample-data. 
+
+
+```sql
+create external table table-name (
   gender string,
   year int,
   name string,
