@@ -1,7 +1,7 @@
 import boto3
 from botocore.exceptions import ClientError
 
-def create_dir():
+def create_dir(bucket):
     """Create directory structure in the given bucket based on the US states name
 
     :param bucket: Bucket to create structure in it
@@ -18,7 +18,7 @@ def create_dir():
         upload_file('sample-data/'+state+'.csv', bucket, dir_name+'/'+state+'.csv')
 
 
-def upload_file(file_name, bucket, object_name=None):
+def upload_file(file_name, bucket, object_name=None, s3=None):
     """Upload a file to an S3 bucket
 
     :param file_name: File to upload
@@ -31,13 +31,14 @@ def upload_file(file_name, bucket, object_name=None):
         object_name = file_name
 
     # Upload the file
-    s3_client = boto3.client('s3')
+    if s3 is None:
+        s3 = boto3.client('s3')
     try:
-        response = s3_client.upload_file(file_name, bucket, object_name)
+        response = s3.upload_file(file_name, bucket, object_name)
     except ClientError as e:
         print(e)
 
 
-bucket="" # set your bucket-name here
+bucket="aws-logs-230926332129-us-east-1" # set your bucket-name here
 
 create_dir(bucket)
