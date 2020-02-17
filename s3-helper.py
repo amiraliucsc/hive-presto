@@ -24,6 +24,7 @@ def upload_file(file_name, bucket, object_name=None, s3=None):
     :param file_name: File to upload
     :param bucket: Bucket to upload to
     :param object_name: S3 object name. If not specified then file_name is used
+    :param s3: S3 Client to use. If not specified a new client will be created
     """
 
     # If S3 object_name was not specified, use file_name
