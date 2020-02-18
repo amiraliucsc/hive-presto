@@ -18,5 +18,25 @@ location 's3://bucket-name/[directory]/[directory]/';
 Also make sure you run the following HIVE command to add metadata about the partitions to the Hive catalogs.
 
 ```
-msck repair table <table-name>
+msck repair table <table-name>;
 ```
+
+
+To Create the table from Parquet format use the following.
+
+```sql
+create external table table-name (
+    gender string,
+    year int,
+    name string,
+    count int)
+partitioned by (state string)
+STORED AS PARQUET
+location 's3://bucket-name/[directory]/[directory]/';
+```
+Also make sure you run the following HIVE command to add metadata about the partitions to the Hive catalogs.
+
+```
+msck repair table <table-name>;
+```
+
