@@ -1,10 +1,11 @@
 import boto3
 from botocore.exceptions import ClientError
 
-def create_dir(bucket):
+def create_dir(bucket, ext):
     """Create directory structure in the given bucket based on the US states name
 
     :param bucket: Bucket to create structure in it
+    :param ext: file extension to interact with
     """
     s3 = boto3.client('s3')
     states = ['IN','IL','KS','SC','HI','GA','SD','CO','NH','MS','MD','UT','LA','ME',
@@ -12,10 +13,10 @@ def create_dir(bucket):
         'MN','WA','WV','NC','MO','AL','VA','CA','CT','AK','ND','VT','MI','NE','KY',
         'ID','DC','IA','FL','PA','RI','DE'] 
     for state in states:
-        dir_name = 'elasticmapreduce/csv/state='+state
+        dir_name = 'elasticmapreduce/dbname/'+ext+'/state='+state
         print(dir_name)
         s3.put_object(Bucket=bucket,Key=(dir_name+'/'))
-        upload_file('sample-data/'+state+'.csv', bucket, dir_name+'/'+state+'.csv')
+        upload_file('sample-data/'+ext+'/'+state+'.'+ext, bucket, dir_name+'/'+state+'.'+ext)
 
 
 def upload_file(file_name, bucket, object_name=None, s3=None):
@@ -42,4 +43,4 @@ def upload_file(file_name, bucket, object_name=None, s3=None):
 
 bucket="aws-logs-230926332129-us-east-1" # set your bucket-name here
 
-create_dir(bucket)
+create_dir(bucket,'parquet')
