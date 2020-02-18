@@ -41,6 +41,6 @@ def upload_file(file_name, bucket, object_name=None, s3=None):
         print(e)
 
 
-bucket="aws-logs-230926332129-us-east-1" # set your bucket-name here
+bucket="hive-presto-sample-data-bucket" # set your bucket-name here
 
 create_dir(bucket,'parquet')
